@@ -8,7 +8,7 @@
      android:name="com.google.android.geo.API_KEY"
      android:value="AIzaSyDgctb10A9nqMWC2ZqLZNzb6y4vW396W0c"/>
 
-    <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+    <!-- <uses-library android:name="org.apache.http.legacy" android:required="false"/> -->
  
     <application
       android:name=".MainApplication"
