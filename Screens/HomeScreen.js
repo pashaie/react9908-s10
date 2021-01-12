@@ -12,7 +12,7 @@ const HomeScreen = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          return <MaterialIcons name="360" />;
+          return <MaterialIcons size={30} name="360" />;
         },
       })}
       tabBarOptions={{
@@ -20,8 +20,8 @@ const HomeScreen = () => {
         inactiveTintColor: 'gray',
         activeBackgroundColor: 'purple',
       }}>
-      <Tab.Screen name="Home" component={MenuScreen} />
-      <Tab.Screen name="Products" component={ProductScreen} />
+      <Tab.Screen name="خانه" component={MenuScreen} />
+      <Tab.Screen name="محصولات" component={ProductScreen} />
     </Tab.Navigator>
   );
 };

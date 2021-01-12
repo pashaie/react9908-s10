@@ -21,45 +21,45 @@ const MenuScreen = ({navigation}) => {
         </View>
         <View style={styles.container}>
           <MenuItem
-            title="Products"
+            title="محصولات"
             onPress={() => navigation.navigate('Products')}
           />
-          <MenuItem title="Categories" />
-          <MenuItem title="Profile" />
+          <MenuItem title="دسته ها" />
+          <MenuItem title="پروفایل" />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 1})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 2})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 3})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 4})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 5})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 6})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 7})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 8})}
           />
           <MenuItem
-            title="Setings"
+            title="تنظیمات"
             onPress={() => navigation.navigate('Setings', {id: 9})}
           />
         </View>
