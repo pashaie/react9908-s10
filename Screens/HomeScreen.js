@@ -4,6 +4,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import MenuScreen from './MenuScreen';
 import ProductScreen from './ProductScreen';
+import LocationScreen from './LocationScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +23,7 @@ const HomeScreen = () => {
       }}>
       <Tab.Screen name="خانه" component={MenuScreen} />
       <Tab.Screen name="محصولات" component={ProductScreen} />
+      <Tab.Screen name="موقیعت" component={LocationScreen} />
     </Tab.Navigator>
   );
 };
