@@ -18,6 +18,7 @@
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-avatar-generator": "^1.0.2",
+    "react-native-camera-kit": "^10.0.0",
     "react-native-elements": "^3.1.0",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-maps": "0.27.1",
