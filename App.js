@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {Button, AppState} from 'react-native';
+import {Button, AppState, Linking} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ThemeProvider} from 'react-native-elements';
@@ -15,6 +15,9 @@ const App = () => {
   const appState = useRef(AppState.currentState);
   useEffect(() => {
     AppState.addEventListener('change', _handleAppStateChange);
+    Linking.getInitialURL().then((data) => {
+      console.log(data);
+    });
 
     return () => {
       AppState.removeEventListener('change', _handleAppStateChange);

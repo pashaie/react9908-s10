@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   ScrollView,
@@ -6,11 +6,21 @@ import {
   Text,
   StyleSheet,
   StatusBar,
+  Linking,
 } from 'react-native';
 
 import MenuItem from '../Components/MenuItem';
 
 const MenuScreen = ({navigation}) => {
+  useEffect(() => {
+    Linking.addEventListener('url', (e, url) => {
+      console.log(e, url);
+    });
+    return () => {
+      //
+    };
+  }, []);
+
   return (
     <SafeAreaView>
       {/* <StatusBar hidden ></StatusBar> */}
@@ -59,8 +69,10 @@ const MenuScreen = ({navigation}) => {
             onPress={() => navigation.navigate('Setings', {id: 8})}
           />
           <MenuItem
-            title="تنظیمات"
-            onPress={() => navigation.navigate('Setings', {id: 9})}
+            title="پرداخت"
+            onPress={() =>
+              Linking.openURL('https://10.0.2.2:44364/PaymentGateway/Send/')
+            }
           />
         </View>
       </ScrollView>
