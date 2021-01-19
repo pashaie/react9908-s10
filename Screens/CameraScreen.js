@@ -10,6 +10,7 @@ import {
   Alert,
   Platform,
   TouchableHighlight,
+  Image,
 } from 'react-native';
 
 // import CameraKitCameraScreen
@@ -17,18 +18,14 @@ import {CameraKitCameraScreen} from 'react-native-camera-kit';
 
 const CameraScreen = ({route, navigation}) => {
   const [isPermitted, setIsPermitted] = useState(false);
-  const [captureImages, setCaptureImages] = useState([]);
+  const [lastPic, setLastPic] = useState(null);
 
-  const requestCameraPermission = async () => {
+  const requestPermission = async (permission, title) => {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        {
-          title: 'Camera Permission',
-          message: 'برنامه نیاز به دوربین داردn',
-        },
-      );
-      // If CAMERA Permission is granted
+      const granted = await PermissionsAndroid.request(permission, {
+        title: title,
+        message: title,
+      });
       return granted === PermissionsAndroid.RESULTS.GRANTED;
     } catch (err) {
       console.warn(err);
@@ -36,47 +33,23 @@ const CameraScreen = ({route, navigation}) => {
     }
   };
 
-  const requestExternalWritePermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'External Storage Write Permission',
-          message: 'App needs write permission',
-        },
-      );
-      // If WRITE_EXTERNAL_STORAGE Permission is granted
-      return granted === PermissionsAndroid.RESULTS.GRANTED;
-    } catch (err) {
-      console.warn(err);
-      alert('Write permission err', err);
-    }
-    return false;
-  };
-
-  const requestExternalReadPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          title: 'Read Storage Permission',
-          message: 'App needs Read Storage Permission',
-        },
-      );
-      // If READ_EXTERNAL_STORAGE Permission is granted
-      return granted === PermissionsAndroid.RESULTS.GRANTED;
-    } catch (err) {
-      console.warn(err);
-      alert('Read permission err', err);
-    }
-    return false;
-  };
-
   const openCamera = async () => {
     if (Platform.OS === 'android') {
-      if (await requestCameraPermission()) {
-        if (await requestExternalWritePermission()) {
-          if (await requestExternalReadPermission()) {
+      if (
+        await requestPermission(PermissionsAndroid.PERMISSIONS.CAMERA, 'دوربین')
+      ) {
+        if (
+          await requestPermission(
+            PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+            'WRITE_EXTERNAL_STORAGE',
+          )
+        ) {
+          if (
+            await requestPermission(
+              PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+              'READ_EXTERNAL_STORAGE',
+            )
+          ) {
             setIsPermitted(true);
           } else {
             alert('READ_EXTERNAL_STORAGE permission denied');
@@ -93,20 +66,9 @@ const CameraScreen = ({route, navigation}) => {
   };
 
   const onBottomButtonPressed = (event) => {
-    const images = JSON.stringify(event.captureImages);
-    if (event.type === 'left') {
-      setIsPermitted(false);
-    } else if (event.type === 'right') {
-      setIsPermitted(false);
-      setCaptureImages(images);
-    } else {
-      Alert.alert(
-        event.type,
-        images,
-        [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-        {cancelable: false},
-      );
-    }
+    setLastPic(event.captureImages[0]);
+    console.log(event.captureImages[0])
+    setIsPermitted(false);
   };
 
   return (
@@ -133,10 +95,12 @@ const CameraScreen = ({route, navigation}) => {
       ) : (
         <View style={styles.container}>
           <Text style={styles.titleText}>کار با دوربین</Text>
-          <Text style={styles.textStyle}>{captureImages}</Text>
           <TouchableHighlight onPress={openCamera} style={styles.buttonStyle}>
             <Text style={styles.buttonTextStyle}>Open Camera</Text>
           </TouchableHighlight>
+          {lastPic && (
+            <Image style={styles.previewImg} source={{uri: lastPic.uri}} />
+          )}
         </View>
       )}
     </SafeAreaView>
@@ -144,6 +108,10 @@ const CameraScreen = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  previewImg: {
+    width: '100%',
+    height: 500,
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
